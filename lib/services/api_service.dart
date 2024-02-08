@@ -4,12 +4,12 @@ import 'dart:convert';
 
 class ApiService {
   http.MultipartRequest requestSendData = http.MultipartRequest(
-      'POST', Uri.parse('http://macbook-pro-van-jesse-2.local:8000/api/books'));
+      'POST', Uri.parse('http://localhost:8000/api/books'));
 
   static Future<List<Map<String, dynamic>>> fetchBooks() async {
     try {
       final Uri apiUrl =
-          Uri.parse('http://macbook-pro-van-jesse-2.local:8000/api/books');
+          Uri.parse('http://localhost:8000/api/books');
 
       final http.Client client = http.Client();
       final response = await client.get(apiUrl);

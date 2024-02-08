@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:biblioapp/bottom_navbar.dart';
 
 void main() {
   runApp(const CreateScreen());
@@ -14,15 +15,18 @@ class CreateScreen extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
       home: Scaffold(
-        body: ListView(children: [
-          Iphone1415ProMax4(),
-        ]),
+        body: ListView(
+          children: [
+            Create(),
+          ],
+        ),
+        bottomNavigationBar: const BottomNavBar(), // Placing bottom navigation bar here
       ),
     );
   }
 }
 
-class Iphone1415ProMax4 extends StatelessWidget {
+class Create extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -47,90 +51,70 @@ class Iphone1415ProMax4 extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 0,
-                top: 0,
+                left: screenWidth * 0.283,
+                top: screenHeight * 0.1,
                 child: Container(
-                  width: screenWidth,
-                  height: screenHeight * 0.089,
-                  decoration: BoxDecoration(color: Color(0xFF777B7E)),
+                  width: screenWidth * 0.438,
+                  height: screenHeight * 0.3,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.add_a_photo,
+                    size: screenWidth * 0.2,
+                    color: Colors.black,
+                  ),
                 ),
               ),
               Positioned(
-                left: 0,
-                top: screenHeight * 0.882,
+                left: screenWidth * 0.25,
+                top: screenHeight * 0.471,
                 child: Container(
-                  width: screenWidth,
-                  height: screenHeight * 0.120,
-                  decoration: BoxDecoration(color: Color(0xFF777B7E)),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                top: 0,
-                child: SizedBox(
-                  width: screenWidth,
-                  height: screenHeight * 0.089,
-                  child: Text(
-                    'Biblio Scan app!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: screenWidth * 0.045,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
+                  width: screenWidth * 0.5,
+                  height: screenHeight * 0.05,
+                  decoration: ShapeDecoration(
+                    color: Color(0xFFD9D9D9),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Titel',
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(color: Colors.grey),
+                        contentPadding: EdgeInsets.all(0),
+                      ),
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
                 ),
               ),
               Positioned(
-                left: screenWidth * 0.072,
-                top: screenHeight * 0.120,
+                left: screenWidth * 0.25,
+                top: screenHeight * 0.544,
                 child: Container(
-                  width: screenWidth * 0.856,
-                  height: screenHeight * 0.727,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFF777B7E),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: screenWidth * 0.180,
-                top: screenHeight * 0.160,
-                child: Container(
-                  width: screenWidth * 0.640,
-                  height: screenHeight * 0.218,
+                  width: screenWidth * 0.5,
+                  height: screenHeight * 0.05,
                   decoration: ShapeDecoration(
                     color: Color(0xFFD9D9D9),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   ),
-                ),
-              ),
-              Positioned(
-                left: screenWidth * 0.349,
-                top: screenHeight * 0.471,
-                child: Text(
-                  'Titel input field',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: screenWidth * 0.045,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: screenWidth * 0.322,
-                top: screenHeight * 0.544,
-                child: Text(
-                  'Auteur input field',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: screenWidth * 0.045,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Auteur',
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(color: Colors.grey),
+                        contentPadding: EdgeInsets.all(0),
+                      ),
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ),
               ),
@@ -144,19 +128,20 @@ class Iphone1415ProMax4 extends StatelessWidget {
                     color: Color(0xFF00C02A),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
-                ),
-              ),
-              Positioned(
-                left: screenWidth * 0.368,
-                top: screenHeight * 0.769,
-                child: Text(
-                  'opslaan',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: screenWidth * 0.045,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w400,
+                  child: TextButton(
+                    onPressed: () {
+                      // Add onPressed functionality here
+                    },
+                    child: Text(
+                      'opslaan',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenWidth * 0.045,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                   ),
                 ),
               ),

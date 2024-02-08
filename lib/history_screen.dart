@@ -15,14 +15,14 @@ class HistoryScreen extends StatelessWidget {
       ),
       home: Scaffold(
         body: ListView(children: [
-          Iphone1415ProMax5(),
+          History(),
         ]),
       ),
     );
   }
 }
 
-class Iphone1415ProMax5 extends StatelessWidget {
+class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

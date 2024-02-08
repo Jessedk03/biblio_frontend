@@ -15,14 +15,14 @@ class ReserveScreen extends StatelessWidget {
       ),
       home: Scaffold(
         body: ListView(children: [
-          Iphone1415ProMax3(),
+          Reserve(),
         ]),
       ),
     );
   }
 }
 
-class Iphone1415ProMax3 extends StatelessWidget {
+class Reserve extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
