@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:biblioapp/bottom_navbar.dart';
 
 void main() {
   runApp(const HistoryScreen());
@@ -14,15 +15,27 @@ class HistoryScreen extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
       home: Scaffold(
-        body: ListView(children: [
-          History(),
-        ]),
+        body: ListView(
+          children: [
+            History(),
+          ],
+        ),
+        bottomNavigationBar: const BottomNavBar(), // Placing bottom navigation bar here
       ),
     );
   }
 }
 
+
 class History extends StatelessWidget {
+  // Mock data for demonstration
+  final List<String> books = [
+    'Book 1',
+    'Book 2',
+    'Book 3',
+    // Add more book titles as needed
+  ];
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -144,6 +157,26 @@ class History extends StatelessWidget {
                   ),
                 ),
               ),
+              Positioned(
+                left: 0,
+                top: screenHeight * 0.200, // Adjust the top position as needed
+                child: SizedBox(
+                  width: screenWidth,
+                  height: screenHeight * 0.7, // Adjust the height as needed
+                  child: ListView.builder(
+                    itemCount: books.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(books[index]),
+                        // Add onTap functionality to navigate to book details screen
+                        onTap: () {
+                          // Add navigation logic here
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -151,3 +184,4 @@ class History extends StatelessWidget {
     );
   }
 }
+

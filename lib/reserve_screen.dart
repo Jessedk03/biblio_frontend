@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:biblioapp/bottom_navbar.dart';
 
 void main() {
   runApp(const ReserveScreen());
@@ -14,9 +15,12 @@ class ReserveScreen extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
       ),
       home: Scaffold(
-        body: ListView(children: [
-          Reserve(),
-        ]),
+        body: ListView(
+          children: [
+            Reserve(),
+          ],
+        ),
+        bottomNavigationBar: const BottomNavBar(), // Placing bottom navigation bar here
       ),
     );
   }

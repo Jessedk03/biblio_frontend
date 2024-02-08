@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'history_screen.dart';
+
 
 
 class FancyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -23,15 +25,12 @@ class FancyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          icon: SvgPicture.asset('assets/icons/history_icon.svg'), // Use your own SVG icon
+          icon: SvgPicture.asset('assets/icons/history_icon.svg'),
           onPressed: () {
-            // Handle notification icon press
-          },
-        ),
-        IconButton(
-          icon: SvgPicture.asset('assets/icons/history_icon.svg'), // Use your own SVG icon
-          onPressed: () {
-            // Handle settings icon press
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HistoryScreen()),
+            );
           },
         ),
       ],
