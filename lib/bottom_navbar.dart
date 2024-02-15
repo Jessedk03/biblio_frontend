@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:biblioapp/main.dart';
-import 'package:biblioapp/scanner_screen.dart';
-import 'package:biblioapp/create_screen.dart';
-import 'package:biblioapp/homepage.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -12,7 +8,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _selectedIndex = 0; // Track the selected index
+  int _selectedIndex = 0; 
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +27,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
           label: 'Scanner',
         ),
       ],
-      currentIndex: _selectedIndex, // Set the current index
+      currentIndex: _selectedIndex, 
       onTap: (index) {
         setState(() {
-          _selectedIndex = index; // Update the selected index
+          _selectedIndex = index; 
         });
         switch (index) {
           case 0:
-            Navigator.pushReplacementNamed(context, '/'); // Navigate to homepage
+            Navigator.pushReplacementNamed(context, '/'); 
             break;
           case 1:
-            Navigator.pushReplacementNamed(context, '/create'); // Navigate to create page
+            Navigator.pushReplacementNamed(context, '/create'); 
             break;
           case 2:
-            Navigator.pushReplacementNamed(context, '/scanner'); // Navigate to scanner page
+            Navigator.pushReplacementNamed(context, '/scanner'); 
             break;
         }
       },

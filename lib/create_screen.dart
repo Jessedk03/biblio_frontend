@@ -1,154 +1,130 @@
-import 'package:flutter/material.dart';
 import 'package:biblioapp/bottom_navbar.dart';
+import 'package:flutter/material.dart';
+import 'package:biblioapp/services/api_service.dart';
 
-void main() {
-  runApp(const CreateScreen());
-}
+class CreateScreen extends StatefulWidget {
+  final String? initialIsbnNumber;
 
-class CreateScreen extends StatelessWidget {
-  const CreateScreen({Key? key}) : super(key: key);
+  const CreateScreen({Key? key, this.initialIsbnNumber}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 18, 32, 47),
-      ),
-      home: Scaffold(
-        body: ListView(
-          children: [
-            Create(),
-          ],
-        ),
-        bottomNavigationBar: const BottomNavBar(), // Placing bottom navigation bar here
+  _CreateScreenState createState() => _CreateScreenState();
+}
+
+class _CreateScreenState extends State<CreateScreen> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _authorController = TextEditingController();
+  final TextEditingController _isbnController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _isbnController.text = widget.initialIsbnNumber ?? '';
+  }
+
+  void _createBook() async {
+    String title = _titleController.text;
+    String author = _authorController.text;
+    String isbnNumber = _isbnController.text;
+    String userName = "";
+
+    try {
+      ApiService apiService = ApiService();
+
+      await apiService.createBook(title, author, isbnNumber, userName);
+
+      _titleController.clear();
+      _authorController.clear();
+      _isbnController.clear();
+    } catch (error) {
+      print('Error creating book: $error');
+    }
+  }
+
+  Future openDialog() async {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Boek succesvol aangemaakt'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text(
+              "Okay",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
-}
 
-class Create extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
-    return Column(
-      children: [
-        Container(
-          width: screenWidth,
-          height: screenHeight,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(color: Colors.white),
-          child: Stack(
-            children: [
-              Positioned(
-                left: 0,
-                top: 0,
-                child: Container(
-                  width: screenWidth,
-                  height: screenHeight,
-                  decoration: BoxDecoration(color: Colors.white),
-                ),
-              ),
-              Positioned(
-                left: screenWidth * 0.283,
-                top: screenHeight * 0.1,
-                child: Container(
-                  width: screenWidth * 0.438,
-                  height: screenHeight * 0.3,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                  ),
-                  child: Icon(
-                    Icons.add_a_photo,
-                    size: screenWidth * 0.2,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Positioned(
-                left: screenWidth * 0.25,
-                top: screenHeight * 0.471,
-                child: Container(
-                  width: screenWidth * 0.5,
-                  height: screenHeight * 0.05,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFD9D9D9),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Titel',
-                        border: InputBorder.none,
-                        hintStyle: TextStyle(color: Colors.grey),
-                        contentPadding: EdgeInsets.all(0),
-                      ),
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: screenWidth * 0.25,
-                top: screenHeight * 0.544,
-                child: Container(
-                  width: screenWidth * 0.5,
-                  height: screenHeight * 0.05,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFFD9D9D9),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Auteur',
-                        border: InputBorder.none,
-                        hintStyle: TextStyle(color: Colors.grey),
-                        contentPadding: EdgeInsets.all(0),
-                      ),
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                left: screenWidth * 0.283,
-                top: screenHeight * 0.747,
-                child: Container(
-                  width: screenWidth * 0.438,
-                  height: screenHeight * 0.068,
-                  decoration: ShapeDecoration(
-                    color: Color(0xFF00C02A),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  ),
-                  child: TextButton(
-                    onPressed: () {
-                      // Add onPressed functionality here
-                    },
-                    child: Text(
-                      'opslaan',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: screenWidth * 0.045,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.popAndPushNamed(context, '/');
+          },
         ),
-      ],
+        backgroundColor: const Color.fromARGB(255, 130, 130, 130),
+        title: const Text(
+          'Voeg je boek handmatig toe!',
+          style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1.5,
+              color: Colors.white),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(labelText: 'Titel'),
+            ),
+            TextField(
+              controller: _authorController,
+              decoration: const InputDecoration(labelText: 'Auteur'),
+            ),
+            TextField(
+              controller: _isbnController,
+              decoration: const InputDecoration(labelText: 'ISBN Nummer'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green.shade300,
+                foregroundColor: Colors.white,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onPressed: () {
+                _createBook();
+                openDialog();
+              },
+              child: const Text(
+                'Create Book',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }

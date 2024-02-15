@@ -7,52 +7,54 @@ class BookListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: ApiService.fetchBooks(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          List<Map<String, dynamic>> bookData = snapshot.data ?? [];
-          print('Number of cars: ${bookData.length}'); // Debugging statement
-          return GridView.builder(
-            padding: const EdgeInsets.all(2),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2),
-            itemCount: bookData.length,
-            itemBuilder: (context, index) {
-              final Map<String, dynamic> book = bookData[index];
-              print('Car details: $book'); // Debugging statement
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  DecoratedBox(
-                    decoration: const BoxDecoration(color: Colors.white),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: TextButton(
-                        onPressed: () => openDialog(context, book),
-                        child: Column(
-                          children: [
-                            Text('Title: ${book['title']}'),
-                            Text('Author: ${book['author']}'),
-                            Text('isbn: ${book['isbnNumber']}'),
-                            Text(
-                                'Gereserveerd: ${book['userName'] != null && book['userName'].isNotEmpty ? book['userName'] : 'Nee'}'),
-                          ],
+    return Scrollbar(
+      radius: const Radius.circular(5),
+      thickness: 10,
+      child: FutureBuilder(
+        future: ApiService.fetchBooks(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            List<Map<String, dynamic>> bookData = snapshot.data ?? [];
+            return GridView.builder(
+              padding: const EdgeInsets.all(2),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
+              itemCount: bookData.length,
+              itemBuilder: (context, index) {
+                final Map<String, dynamic> book = bookData[index];
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    DecoratedBox(
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: TextButton(
+                          onPressed: () => openDialog(context, book),
+                          child: Column(
+                            children: [
+                              Text('Title: ${book['title']}'),
+                              Text('Author: ${book['author']}'),
+                              Text('isbn: ${book['isbnNumber']}'),
+                              Text(
+                                  'Gereserveerd: ${book['userName'] != null && book['userName'].isNotEmpty ? book['userName'] : '---'}'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
-          );
-        }
-      },
+                  ],
+                );
+              },
+            );
+          }
+        },
+      ),
     );
   }
 
@@ -83,8 +85,7 @@ class BookListView extends StatelessWidget {
             onPressed: () async {
               String userName = userNameController.text;
               await ApiService.updateBookUserName(book['id'], userName);
-              onTitleChanged(userName); // Call onTitleChanged after the update
-              // ignore: use_build_context_synchronously
+              onTitleChanged(userName);
               Navigator.of(context).pop();
             },
             child: const Text("Reserveer"),

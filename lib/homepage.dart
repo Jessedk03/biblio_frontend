@@ -1,6 +1,7 @@
 import 'package:biblioapp/bottom_navbar.dart';
 import 'package:biblioapp/custom_appbar.dart';
 import 'package:biblioapp/list_view.dart';
+// import 'package:biblioapp/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,17 +26,26 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(0),
+          Padding(
+            padding: const EdgeInsets.all(0),
             child: DecoratedBox(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(125, 130, 130, 130),
               ),
               child: Padding(
-                padding: EdgeInsets.all(7),
+                padding: const EdgeInsets.all(7),
                 child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Search...",
+                  onSubmitted: (query) {
+                    // final List<String> searchTerms = query.split(' ');
+                    // final String title = searchTerms.join(' ');
+                    // final String author =
+                        // searchTerms.length > 1 ? searchTerms[1] : '';
+                    // ApiService.searchBooks(title, author).then((books) {
+                      // print(books);
+                    // });
+                  },
+                  decoration: const InputDecoration(
+                    hintText: "Zoek op titel of auteur..",
                     border: InputBorder.none,
                     icon: Icon(Icons.search),
                   ),

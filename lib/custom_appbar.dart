@@ -11,8 +11,8 @@ class FancyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor:const Color.fromARGB(255, 130, 130, 130), // Set your desired background color
-      elevation: 0, // Remove shadow
+      backgroundColor:const Color.fromARGB(255, 130, 130, 130), 
+      elevation: 0,
       centerTitle: true,
       title: const Text(
         'Biblio',
